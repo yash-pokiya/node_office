@@ -1,4 +1,6 @@
-const fs = require("node:fs");
+// const fs = require("node:fs");
+// const chalk = require("chalk")
+import chalk from "chalk";
 
 //fs = file system
 
@@ -87,7 +89,9 @@ const fs = require("node:fs");
 
 // ==================Delete folder==================
 
-fs.rm("index.js" , {recursive : true , force: true} , (err) => {
-    if(err) throw err;
-    console.log('delete successfully!!!');
-} )
+// fs.rm("index.js" , {recursive : true , force: true} , (err) => {
+//     if(err) throw err;
+//     console.log('delete successfully!!!');
+// } )
+
+console.log(chalk.blue("Write with chalk"));
