@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= user.fullname %>'s Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-5xl">
+        
+        <header class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-10">
+          <div class="flex flex-col items-center sm:flex-row sm:items-start text-center sm:text-left">
+            <div class="relative shrink-0">
+              <img
+                class="h-32 w-32 rounded-full object-cover shadow-sm ring-4 ring-gray-50"
+                src="/uploads/<%= user.image || 'https://via.placeholder.com/150' %>"
+                alt="<%= user.fullname %>"
+              />
+            </div>
+   
+            <div class="mt-6 sm:mt-0 sm:ml-8 flex-1 w-full">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                <div>
+                  <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight"><%= user.fullname %></h1>
+                  <p class="text-md text-indigo-600 font-medium mt-1">@<%= user.username %></p>
+                </div>
+                
+                <div class="mt-6 flex justify-center space-x-3 sm:mt-0 sm:justify-end">
+                  <a href="/post" class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors">
+                    Create Post
+                  </a>
+                  <a href="/editprofile">
+                    <button class="rounded-lg bg-white border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 transition-colors">
+                      Edit Profile
+                    </button>
+                  </a>
+                  <a href="/logout" class="rounded-lg bg-white border border-red-200 px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-50 transition-colors">
+                    Logout
+                  </a>
+                </div>
+              </div>
+   
+              <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-gray-100 pt-6">
+                <div class="space-y-2">
+                  <p class="text-gray-600 text-sm flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <%= user.email %>
+                  </p>
+                  <p class="text-gray-600 text-sm flex items-center">
+                    <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    +91 <%= user.phone %>
+                  </p>
+                </div>
+                
+                <div class="flex items-center sm:justify-end">
+                  <div class="bg-gray-50 rounded-lg px-4 py-3 border border-gray-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Total Posts</p>
+                    <p class="text-2xl font-bold text-gray-900"><%= user.posts.length %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section>
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-bold text-gray-900">Recent Posts</h3>
+            <span class="text-sm text-gray-500"><%= user.posts.length %> items</span>
+          </div>
+
+          <% if (user.posts.length === 0) { %>
+            <div class="text-center bg-white border-2 border-dashed border-gray-200 rounded-2xl py-16 px-6">
+              <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <h3 class="mt-4 text-sm font-semibold text-gray-900">No posts yet</h3>
+              <p class="mt-1 text-sm text-gray-500">Get started by creating a new post.</p>
+              <div class="mt-6">
+                <a href="/post" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                  <svg class="-ml-0.5 mr-1.5 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  Create Post
+                </a>
+              </div>
+            </div>
+          <% } else { %>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <% posts.forEach(function(post) { %>
+                <article class="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                  
+                  <div class="relative h-48 w-full bg-gray-200 shrink-0 overflow-hidden">
+                    <img
+                      src="/uploads/<%= post.imgUrl || 'https://via.placeholder.com/400x300' %>"
+                      alt="Post Image"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    
+                    <div class="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <a 
+                        href="/editpost/<%= post._id %>" 
+                        class="p-2 bg-white/95 hover:bg-indigo-50 text-indigo-600 rounded-full shadow-md backdrop-blur transition-colors"
+                        title="Edit Post"
+                      >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                        </svg>
+                      </a>
+
+                      <a 
+                        href="/delete/<%= post._id %>" 
+                        onclick="return confirm('Delete this post forever?')"
+                        class="p-2 bg-white/95 hover:bg-red-50 text-red-600 rounded-full shadow-md backdrop-blur transition-colors"
+                        title="Delete Post"
+                      >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+   
+                  <div class="flex flex-col flex-1 p-5">
+                    <h2 class="text-xl font-bold text-gray-900 line-clamp-1 mb-2">
+                      <%= post.title || 'Untitled Post' %>
+                    </h2>
+                    <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-4 flex-1">
+                      <%= post.description || 'No description provided for this post.' %>
+                    </p>
+   
+                    <div class="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                      <div class="flex items-center">
+                        <img class="h-6 w-6 rounded-full object-cover border border-gray-200" src="/uploads/<%= user.image %>" alt="author">
+                        <div class="ml-2">
+                          <p class="text-[11px] font-bold text-gray-900"><%= user.fullname %></p>
+                          <p class="text-[10px] text-gray-400">
+                            <%= new Date(post.createdAt).toLocaleString('en-IN', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            }) %>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              <% }) %>
+            </div>
+          <% } %>
+        </section>
+      </div>
+    </div>
+  </body>
+</html> 
